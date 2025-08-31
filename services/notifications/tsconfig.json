@@ -1,0 +1,12 @@
+{
+  "extends": "@appvantageasia/tsconfig/node-react.json",
+  "include": ["./src/**/*.ts"],
+  "exclude": ["build", "node_modules"],
+  "compilerOptions": {
+    "types": ["node"],
+    "declaration": true,
+    "declarationMap": false,
+    "emitDeclarationOnly": true,
+    "sourceMap": false
+  }
+}

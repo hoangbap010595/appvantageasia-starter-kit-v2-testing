@@ -1,0 +1,14 @@
+mutation ConfirmEmail($password: String!, $newEmail: String!) {
+    confirmEmail(password: $password, newEmail: $newEmail) {
+        ... on ConfirmEmailSuccessfulResponse {
+            result
+        }
+
+        ... on ErrorResponse {
+            fields {
+                field
+                message
+            }
+        }
+    }
+}

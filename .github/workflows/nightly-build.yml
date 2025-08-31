@@ -1,0 +1,15 @@
+name: Nightly builds
+
+on:
+  schedule:
+    - cron: '0 17 * * *'
+
+jobs:
+  main:
+    name: Main
+    uses: ./.github/workflows/template-main.yml
+    secrets: inherit
+    with:
+      cypress-recording: true
+      cypress-visual-testing: true
+      codecov-bundle-upload: true

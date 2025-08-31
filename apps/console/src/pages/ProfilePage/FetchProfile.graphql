@@ -1,0 +1,14 @@
+query FetchProfile {
+    profile: currentUser {
+        ...ProfileData
+    }
+}
+
+fragment ProfileData on User {
+    id
+    email
+    name
+    otpAuthenticator {
+        date
+    }
+}

@@ -1,0 +1,12 @@
+"""
+TenantMembership
+
+Represents the relationship between a User and a Tenant, including the user's role.
+"""
+type TenantMembership {
+    userId: ObjectID!
+    user: User!
+    tenantId: ObjectID!
+    tenant: Tenant!
+    role: TenantMembershipRole!
+}

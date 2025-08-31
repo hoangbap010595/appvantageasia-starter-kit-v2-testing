@@ -1,0 +1,8 @@
+"""
+Change Email Successful Response
+
+This is the response returned from a successful change email request.
+"""
+type ChangeEmailSuccessfulResponse {
+    result: Boolean!
+}

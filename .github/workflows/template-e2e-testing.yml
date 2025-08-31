@@ -1,0 +1,324 @@
+name: Template - Run E2E testing
+
+on:
+  workflow_call:
+    inputs:
+      cypress-visual-testing:
+        required: false
+        type: boolean
+        default: false
+      cypress-recording:
+        required: false
+        type: boolean
+        default: false
+      minio-image:
+        required: true
+        type: string
+      cypress-image:
+        required: true
+        type: string
+
+jobs:
+  storybook:
+    name: Run Storybook tests
+    runs-on: ubuntu-latest
+    env:
+      STORYBOOK_CODE_COVERAGE: "true"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.14.0
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn --immutable
+
+      - name: Prepare packages
+        run: yarn prepare
+
+      - name: Install Playwright
+        run: npx playwright install --with-deps
+
+      - name: Build Storybook
+        run: yarn storybook:build
+        working-directory: apps/console
+
+      - name: Serve Storybook
+        run: yarn dlx serve -p 6006 storybook-static &
+        working-directory: apps/console
+
+      - name: Wait for storybook http server
+        run: yarn wait-on -t 60s tcp:localhost:6006
+
+      - name: Run tests
+        run: yarn storybook:test --coverage
+        working-directory: apps/console
+        id: storybook-test
+
+      - name: Upload coverage report to Codecov
+        uses: codecov/codecov-action@v5
+        if: always() && steps.storybook-test.outcome != 'skipped'
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: storybook
+          name: storybook
+          verbose: true
+
+  chromatic:
+    if: ${{ inputs.cypress-visual-testing }}
+    name: Run Chromatic
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.14.0
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn --immutable
+
+      - name: Prepare packages
+        run: yarn prepare
+
+      - name: Run Chromatic
+        uses: chromaui/action@latest
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          onlyChanged: true
+          workingDir: apps/console
+          buildScriptName: "storybook:build"
+
+  e2e-testing:
+    name: Run Cypress tests
+    runs-on: ubuntu-latest
+    container:
+      image: ${{ inputs.cypress-image }}
+      options: --user 1001
+    env:
+      DOTENV_DISABLE: "true"
+      TURBO_API: ${{ secrets.TURBO_API }}
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+      APP_SESSION_SECRET: whatever
+      APP_REDIS_URI: "redis://redis:6379/0"
+      APP_BULL_REDIS_URI: "redis://redis:6379/0"
+      APP_BROKER_TRANSPORTER_URI: "redis://redis:6379/0"
+      APP_DB_URI: "mongodb://root:password@mongo:27017"
+      APP_DB_NAME: "e2e"
+      APP_STORAGE_AWS_IDENTITY: "false"
+      APP_STORAGE_ACCESS_KEY: "AKIAIOSFODNN7EXAMPLE"
+      APP_STORAGE_SECRET_KEY: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+      APP_STORAGE_ENDPOINT: "http://minio:9000"
+      APP_EMAIL_SMTP_HOST: "mailpit"
+      APP_EMAIL_SMTP_PORT: "1025"
+      CYPRESS_BASE_URL: "http://localhost:3000"
+      APP_SERVER_SERVE_STATIC: "true"
+      APP_SERVER_STATIC_DIRECTORY: "${{ github.workspace }}/apps/console/build"
+      MAILPIT_HOSTNAME: "mailpit"
+      APP_USE_PROMETHEUS_EXPORT: "true"
+      APP_PROMETHEUS_EXPORT_PORT: "9092"
+    services:
+      mailpit:
+        image: axllent/mailpit:v1.24.1
+        ports:
+          - 1025:1025
+          - 8025:8025
+      minio:
+        image: ${{ inputs.minio-image }}
+        env:
+          MINIO_ROOT_USER: 'AKIAIOSFODNN7EXAMPLE'
+          MINIO_ROOT_PASSWORD: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
+        ports:
+          - 9000:9000
+        volumes:
+          - minio:/data
+      redis:
+        image: redis:7.4.2
+        ports:
+          - 6379:6379
+        volumes:
+          - redis:/data
+      mongo:
+        image: mongo:8.0.8
+        env:
+          MONGO_INITDB_ROOT_USERNAME: root
+          MONGO_INITDB_ROOT_PASSWORD: password
+        ports:
+          - 27017:27017
+        volumes:
+          - mongo:/data/db
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.14.0
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn --immutable
+
+      - name: Prepare packages
+        run: yarn prepare
+        env:
+          NODE_ENV: production
+
+      - name: Build
+        run: yarn build
+        env:
+          NODE_ENV: production
+          VITE_COVERAGE: "true"
+
+      - name: Patch backend build
+        run: |
+          rm apps/backend/build/package.json
+          cp apps/console/build/.vite/manifest.json apps/backend/build/consoleManifest.json
+
+      - name: Wait for redis
+        run: yarn wait-on -t 60s tcp:redis:6379
+
+      - name: Wait for minio
+        run: yarn wait-on -t 60s tcp:minio:9000
+
+      - name: Wait for mongo
+        run: yarn wait-on -t 60s tcp:mongo:27017
+
+      - name: Start backend process
+        id: backend-run
+        working-directory: apps/backend/build
+        run: |
+          LOG_FILE_NAME="backend_server.log"
+          PID_FILE_NAME="backend_server.pid"
+          echo "Starting backend server..."
+          nohup yarn c8 node index.js standalone > "$LOG_FILE_NAME" 2>&1 &
+          SERVER_PID=$!
+          SERVER_PGID=$(ps -o pgid= -p $SERVER_PID | xargs)
+          echo $SERVER_PID > "$PID_FILE_NAME"
+          echo "Backend server started with PID: $SERVER_PID"
+          echo "Output logged to: $(pwd)/$LOG_FILE_NAME"
+          echo "PID stored in: $(pwd)/$PID_FILE_NAME"
+          echo "pid=$SERVER_PID" >> $GITHUB_OUTPUT
+          echo "pgid=$SERVER_PGID" >> $GITHUB_OUTPUT
+          echo "stdOutputFile=$(pwd)/$LOG_FILE_NAME" >> $GITHUB_OUTPUT
+          cd ../../
+          echo "Waiting for backend server to be ready on http://localhost:3000..."
+          yarn wait-on -t 120s -v http://localhost:3000
+          echo "Backend server is ready."
+
+      - name: Run Cypress
+        uses: cypress-io/github-action@v6
+        id: cypress
+        with:
+          browser: chrome
+          working-directory: packages/e2e
+          record: ${{ inputs.cypress-recording }}
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run Chromatic
+        uses: chromaui/action@latest
+        if: ${{ inputs.cypress-visual-testing }}
+        with:
+          cypress: true
+          projectToken: ${{ secrets.CHROMATIC_E2E_PROJECT_TOKEN }}
+          workingDir: packages/e2e
+        env:
+          CHROMATIC_ARCHIVE_LOCATION: ./cypress/downloads
+
+      - name: Stop backend process for coverage
+        if: always() && steps.cypress.outcome != 'skipped' && steps.backend-run.outputs.pid != ''
+        run: |
+          PID_TO_WATCH="${{ steps.backend-run.outputs.pid }}"
+          PGID_TO_KILL="-${{ steps.backend-run.outputs.pgid }}"
+          echo "Attempting to stop backend process with PID: $PID_TO_WATCH PGID: $PGID_TO_KILL"
+          kill -INT $PGID_TO_KILL
+          echo "SIGINT sent to PGID $PGID_TO_KILL. Waiting for graceful shutdown (up to 30s)..."
+
+          TIMEOUT_SECONDS=120
+          ELAPSED_SECONDS=0
+          NEXT_SIGNAL_TIME=10
+          while kill -0 "$PID_TO_WATCH" 2>/dev/null; do
+            if [ "$ELAPSED_SECONDS" -ge "$TIMEOUT_SECONDS" ]; then
+              echo "Timeout waiting for process to terminate. Forcing kill."
+              kill -KILL $PGID_TO_KILL
+              break
+            fi
+            if [ "$ELAPSED_SECONDS" -ge "$NEXT_SIGNAL_TIME" ]; then
+              echo "Process still running after $ELAPSED_SECONDS s. Resending SIGTERM."
+              kill -TERM $PGID_TO_KILL
+              NEXT_SIGNAL_TIME=$((NEXT_SIGNAL_TIME + 10))
+            fi
+            sleep 1
+            ELAPSED_SECONDS=$((ELAPSED_SECONDS + 1))
+          done
+          if ! kill -0 "$PID_TO_WATCH" 2>/dev/null; then
+            echo "Process has terminated."
+          else
+            echo "Process might still be running after SIGKILL or timeout."
+          fi
+
+      - name: Prepare coverage report
+        working-directory: apps/backend
+        run: |
+          echo "Preparing backend coverage report..."
+          rm -rf ./coverage
+          mv ./build/coverage ./
+          mv ../../packages/e2e/coverage ../console/
+          rm -rf ../console/coverage/tmp
+        if: always() && steps.cypress.outcome != 'skipped'
+
+      - uses: actions/upload-artifact@v4
+        if: always() && steps.cypress.outcome != 'skipped'
+        with:
+          name: cypress-backend-coverage
+          path: apps/backend/coverage
+          if-no-files-found: ignore
+
+      - uses: actions/upload-artifact@v4
+        if: always() && steps.cypress.outcome != 'skipped'
+        with:
+          name: cypress-frontend-coverage
+          path: apps/console/coverage
+          if-no-files-found: ignore
+
+      - uses: actions/upload-artifact@v4
+        if: always() && steps.cypress.outcome != 'skipped'
+        with:
+          name: cypress-screenshots
+          path: packages/e2e/cypress/screenshots
+          if-no-files-found: ignore
+
+      - uses: actions/upload-artifact@v4
+        if: always() && steps.cypress.outcome != 'skipped'
+        with:
+          name: cypress-videos
+          path: packages/e2e/cypress/videos
+          if-no-files-found: ignore
+
+      - name: Output backend logs
+        if: always() && steps.cypress.outcome != 'skipped' && steps.backend-run.outputs.stdOutputFile != ''
+        run: cat "${{ steps.backend-run.outputs.stdOutputFile }}"
+
+      - name: Upload coverage report to Codecov
+        uses: codecov/codecov-action@v5
+        if: always() && steps.cypress.outcome != 'skipped'
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: cypress
+          name: cypress
+          verbose: true

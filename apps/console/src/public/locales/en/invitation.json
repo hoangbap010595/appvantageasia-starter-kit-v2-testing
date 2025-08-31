@@ -1,0 +1,30 @@
+{
+    "title":"Invitation",
+    "invalid": "This is a invalid invitation link.",
+    "expiredMessage": "This invitation has been expired.",
+    "signIn":{
+        "title": "Sign In"
+    },
+    "signUp": {
+        "title": "Sign Up",
+        "fields": {
+            "name": {
+                "label": "Name"
+            },
+            "email": {
+                "label": "Email Address"
+            },
+            "password": {
+                "label": "Password"
+            },
+            "confirmPassword": {
+                "label": "Confirm Password"
+            }
+        },
+        "error": {
+            "invalidPasswordRepeat": "Password does not match."
+        },
+        "submitBtn": "Sign Up",
+        "submitting": "Signing Up"
+    }
+}

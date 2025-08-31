@@ -1,0 +1,4 @@
+/eslint-report.json
+/typescript-report.json
+/src/**/*.d.ts
+/node_modules

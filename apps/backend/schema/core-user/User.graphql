@@ -1,0 +1,13 @@
+"""
+User
+
+User is a person who can log in to the system.
+"""
+type User {
+    id: ObjectID!
+    email: String!
+    name: String!
+    isSuperAdmin: Boolean!
+    otpAuthenticator: OtpAuthenticator
+    memberships: [TenantMembership!]!
+}

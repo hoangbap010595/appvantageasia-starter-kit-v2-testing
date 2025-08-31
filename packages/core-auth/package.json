@@ -1,0 +1,38 @@
+{
+  "name": "@appvantageasia/core-auth",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./src/index.ts",
+  "types": "./src/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "clean": "yarn rimraf -g \"./src/**/*.d.ts\" ./eslint-report.json ./typescript-report.json -g \"*.tsbuildinfo\"",
+    "lint": "eslint",
+    "lint:types": "yarn node $PROJECT_CWD/packages/devtools/build/github-actions/typescript-checker.js"
+  },
+  "devDependencies": {
+    "@appvantageasia/eslint-config": "*",
+    "@appvantageasia/tsconfig": "*",
+    "@types/bcryptjs": "^3.0.0",
+    "@types/qrcode": "^1.5.5",
+    "eslint": "^9.31.0",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@appvantageasia/core-database": "*",
+    "@appvantageasia/core-node-utils": "*",
+    "@appvantageasia/core-pubsub": "*",
+    "@appvantageasia/core-redis": "*",
+    "@azure/msal-node": "^3.6.3",
+    "@casl/ability": "^6.7.3",
+    "@simplewebauthn/server": "^13.1.2",
+    "@simplewebauthn/types": "^12.0.0",
+    "bcryptjs": "^3.0.2",
+    "dayjs": "^1.11.13",
+    "mongodb": "^6.18.0",
+    "openid-client": "^6.6.2",
+    "otplib": "^12.0.1",
+    "qrcode": "^1.5.4"
+  }
+}

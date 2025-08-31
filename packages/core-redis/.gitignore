@@ -1,0 +1,4 @@
+/node_modules
+/coverage
+/eslint-report.json
+/typescript-report.json

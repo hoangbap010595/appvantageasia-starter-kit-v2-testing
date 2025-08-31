@@ -1,0 +1,8 @@
+"""
+Change Email Response
+
+The response may be of two types:
+- ChangeEmailSuccessfulResponse : in case of success
+- ErrorResponse : in case of error
+"""
+union ChangeEmailResponse = ChangeEmailSuccessfulResponse | ErrorResponse

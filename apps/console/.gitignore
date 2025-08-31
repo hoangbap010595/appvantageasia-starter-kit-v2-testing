@@ -1,0 +1,8 @@
+/build
+/report.html
+/node_modules
+/eslint-report.json
+/typescript-report.json
+/storybook-static
+*storybook.log
+/coverage

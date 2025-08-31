@@ -1,0 +1,56 @@
+{
+    "title": "Group: {{name}}",
+    "groupRole": {
+        "manager": "Manager",
+        "member": "Member"
+    },
+    "tabs": {
+        "group": "Group",
+        "assignedUsers": "Assigned Users",
+        "inheritedUsers": "Inherited Users"
+    },
+    "fields": {
+        "name": {
+            "label": "Name"
+        },
+        "parentGroup": {
+            "label": "Parent Group"
+        }
+    },
+    "createSuccessful": "Group updated",
+    "userList": {
+        "columns": {
+            "user": "User",
+            "role": "Role",
+            "group": "Group"
+        },
+        "empty": "No Assigned Users",
+        "noInherited": "No Inherited Users"
+    },
+    "actions": {
+        "update": "Update",
+        "updating": "Updating",
+        "delete": "Delete",
+        "cancel": "Cancel",
+        "assignUser": "Assign"
+    },
+    "assignUserModal": {
+        "title": "Assign User",
+        "fields": {
+            "user": {
+                "label": "User"
+            },
+            "role": {
+                "label": "Role"
+            }
+        },
+        "assign":"Assign",
+        "assigning": "Assigning",
+        "createSuccessful": "User assigned"
+    },
+    "unassignUserModal": {
+        "title": "Remove User",
+        "content": "Do you want to remove this user from this group?",
+        "createSuccessful": "User Removed"
+    }
+}

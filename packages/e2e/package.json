@@ -1,0 +1,41 @@
+{
+  "name": "@appvantageasia/e2e",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "eslint \"./**/*.{ts,tsx,cjs}\"",
+    "lint:types": "yarn node $PROJECT_CWD/packages/devtools/build/github-actions/typescript-checker.js",
+    "clean": "yarn rimraf -rf coverage .nyc_output -g ./eslint-report.json ./typescript-report.json -g \"*.tsbuildinfo\" -g \"./.env.*.local\" ./.env.local",
+    "start": "yarn cypress open"
+  },
+  "devDependencies": {
+    "@appvantageasia/eslint-config": "*",
+    "@appvantageasia/tsconfig": "*",
+    "@graphql-eslint/eslint-plugin": "^4.4.0",
+    "@types/node": "^24.1.0",
+    "cypress": "^14.5.2",
+    "cypress-file-upload": "^5.0.8",
+    "cypress-vite": "^1.6.0",
+    "eslint": "^9.31.0",
+    "eslint-plugin-cypress": "^5.1.0",
+    "eslint-plugin-graphql": "^4.0.0",
+    "graphql-config": "^5.1.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3",
+    "vite": "^7.0.5"
+  },
+  "dependencies": {
+    "@appvantageasia/devtools": "*",
+    "@appvantageasia/e2e-emails": "*",
+    "@appvantageasia/e2e-snapshots": "*",
+    "@chromatic-com/cypress": "^0.11.5",
+    "@cypress/code-coverage": "^3.14.5",
+    "chromatic": "^13.1.2",
+    "cypress-network-idle": "^1.15.0",
+    "dayjs": "^1.11.13",
+    "graphql": "^16.11.0",
+    "graphql-tag": "^2.12.6",
+    "rimraf": "^6.0.1"
+  }
+}

@@ -1,0 +1,68 @@
+name: Template - Publish Releases
+
+on:
+  workflow_call:
+    outputs:
+      nextRelease:
+        description: The next release version
+        value: ${{ jobs.publish.outputs.nextRelease }}
+    inputs:
+      aws-region:
+        required: true
+        type: string
+      aws-role-arn:
+        required: true
+        type: string
+
+jobs:
+  publish:
+    name: Publish
+    concurrency: publish
+    runs-on: ubuntu-latest
+    outputs:
+      nextRelease: ${{ steps.release.outputs.nextRelease }}
+    env:
+      TURBO_API: ${{ secrets.TURBO_API }}
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+    permissions:
+      id-token: write
+      pull-requests: write
+      contents: write
+      issues: write
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.14.0
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn --immutable
+
+      - name: Build
+        run: yarn build
+        env:
+          NODE_ENV: production
+
+      - name: Configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ inputs.aws-role-arn }}
+          aws-region: ${{ inputs.aws-region }}
+
+      - name: Authorize docker with ECR
+        run: aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --password-stdin 985587343714.dkr.ecr.ap-southeast-1.amazonaws.com
+
+      - name: Release
+        id: release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          MST_RELEASES_WEBHOOK: ${{ secrets.MST_RELEASES_WEBHOOK }}
+        run: yarn semantic-release

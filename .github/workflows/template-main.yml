@@ -1,0 +1,136 @@
+name: Template - Build and Test
+
+on:
+  workflow_call:
+    inputs:
+      codecov-bundle-upload:
+        required: false
+        type: boolean
+        default: false
+      cypress-visual-testing:
+        required: false
+        type: boolean
+        default: false
+      skip-tests:
+        required: false
+        type: boolean
+        default: false
+      cypress-recording:
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  build-and-lint:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    env:
+      TURBO_API: "https://turbo.cluster.appvantage.co"
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: "apv-starter-kit-v2"
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.14.0
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn --immutable
+
+      - name: Prepare packages
+        run: yarn prepare
+        env:
+          NODE_ENV: production
+
+      - name: Build
+        run: yarn build
+        env:
+          NODE_ENV: production
+          CODECOV_TOKEN: ${{ inputs.codecov-bundle-upload && secrets.CODECOV_TOKEN || '' }}
+
+      - name: Publish artifact for backend
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-backend
+          path: apps/backend/build/
+
+      - name: Publish artifact for console
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-console
+          path: apps/console/build/
+
+      - name: Publish bundle report for console
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-console-report
+          path: apps/console/report.html
+
+      - name: Lint Code
+        id: eslint
+        run: yarn lint --continue -- --f $(pwd)/packages/eslint-config/build/githubFormatter.js
+
+      - name: Run type checks
+        id: type-check
+        run: yarn lint:types --continue
+        if: always() && steps.eslint.outcome != 'skipped'
+
+      - name: Upload ESLint & Typescript reports
+        run: node build/github-actions/upload-report.js
+        working-directory: packages/devtools
+        if: always() && steps.eslint.outcome != 'skipped'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    #  - name: Lint Commits
+    #    run: yarn lint:commits
+    #    working-directory: packages/devtools
+    #    env:
+    #      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  prepare-cypress:
+    name: Prepare Cypress image
+    uses: ./.github/workflows/template-prepare-image.yml
+    secrets: inherit
+    needs: [ build-and-lint ]
+    if: ${{ !inputs.skip-tests }}
+    with:
+      src: .github/images/cypress
+      name: cypress
+
+  prepare-minio:
+    name: Prepare MinIO image
+    uses: ./.github/workflows/template-prepare-image.yml
+    secrets: inherit
+    needs: [ build-and-lint ]
+    if: ${{ !inputs.skip-tests }}
+    with:
+      src: .github/images/minio
+      name: minio
+
+  e2e-testing:
+    name: E2E Testing
+    uses: ./.github/workflows/template-e2e-testing.yml
+    needs: [ build-and-lint, prepare-minio, prepare-cypress ]
+    if: ${{ !inputs.skip-tests }}
+    secrets: inherit
+    with:
+      cypress-visual-testing: ${{ inputs.cypress-visual-testing }}
+      cypress-recording: ${{ inputs.cypress-recording }}
+      minio-image: ${{ needs.prepare-minio.outputs.image }}
+      cypress-image: ${{ needs.prepare-cypress.outputs.image }}
+
+  unit-testing:
+    name: Unit Testing
+    uses: ./.github/workflows/template-unit-testing.yml
+    needs: [ build-and-lint, prepare-minio ]
+    if: ${{ !inputs.skip-tests }}
+    secrets: inherit
+    with:
+      minio-image: ${{ needs.prepare-minio.outputs.image }}

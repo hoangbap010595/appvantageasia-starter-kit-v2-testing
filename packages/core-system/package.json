@@ -1,0 +1,23 @@
+{
+  "name": "@appvantageasia/core-system",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./src/index.ts",
+  "type": "module",
+  "scripts": {
+    "clean": "yarn rimraf -rf -g \"src/**/*.d.ts\" ./eslint-report.json ./typescript-report.json -g \"*.tsbuildinfo\"",
+    "lint": "eslint",
+    "lint:types": "yarn node $PROJECT_CWD/packages/devtools/build/github-actions/typescript-checker.js"
+  },
+  "devDependencies": {
+    "@appvantageasia/devtools": "workspace:^",
+    "@appvantageasia/eslint-config": "*",
+    "@appvantageasia/tsconfig": "*",
+    "eslint": "^9.31.0",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@appvantageasia/core-database": "*"
+  }
+}

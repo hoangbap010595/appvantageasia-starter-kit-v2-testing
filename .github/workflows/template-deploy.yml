@@ -1,0 +1,61 @@
+name: Template - Deploy
+
+on:
+  workflow_call:
+    inputs:
+      release-namespace:
+        required: true
+        type: string
+      release-name:
+        required: true
+        type: string
+      version:
+        required: true
+        type: string
+      aws-cluster-name:
+        required: true
+        type: string
+      aws-region:
+        required: true
+        type: string
+      aws-role-arn:
+        required: true
+        type: string
+      assets-cdn:
+        type: string
+        required: true
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ inputs.aws-role-arn }}
+          aws-region: ${{ inputs.aws-region }}
+
+      - name: Install kubectl
+        run: curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+
+      - name: Install helm client
+        run: curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+
+      - name: Authenticate to EKS Cluster
+        run: aws eks --region ${{ inputs.aws-region }} update-kubeconfig --name ${{ inputs.aws-cluster-name }}
+
+      - name: Upgrading helm chart
+        run: |
+          helm upgrade \
+            -n ${{ inputs.release-namespace }} \
+            ${{ inputs.release-name }} ./charts/starter-kit-v2 \
+            --reuse-values \
+            --set global.image.tag=${{ inputs.version }} \
+            --set settings.spa.consoleCdn=${{ inputs.assets-cdn }}/${{ inputs.version }}

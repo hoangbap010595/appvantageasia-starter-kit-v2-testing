@@ -1,0 +1,27 @@
+{
+  "name": "@appvantageasia/core-redis",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./src/index.ts",
+  "type": "module",
+  "scripts": {
+    "clean": "yarn rimraf -g \"./src/**/*.d.ts\" ./eslint-report.json ./typescript-report.json -g \"*.tsbuildinfo\"",
+    "dev": "yarn prepare --watch",
+    "lint": "eslint",
+    "lint:types": "yarn node $PROJECT_CWD/packages/devtools/build/github-actions/typescript-checker.js"
+  },
+  "devDependencies": {
+    "@appvantageasia/devtools": "*",
+    "@appvantageasia/eslint-config": "*",
+    "@appvantageasia/tsconfig": "*",
+    "@types/node": "^24.1.0",
+    "eslint": "^9.31.0",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@appvantageasia/core-node-utils": "*",
+    "bson": "^6.10.4",
+    "ioredis": "^5.6.1"
+  }
+}

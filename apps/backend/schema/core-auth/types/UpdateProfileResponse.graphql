@@ -1,0 +1,8 @@
+"""
+Update Profile Response
+
+The response may be of two types:
+- UpdateProfileSuccessfulResponse : in case of success
+- ErrorResponse : in case of error
+"""
+union UpdateProfileResponse = UpdateProfileSuccessfulResponse | ErrorResponse

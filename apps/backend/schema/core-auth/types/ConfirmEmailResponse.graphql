@@ -1,0 +1,8 @@
+"""
+Confirm Email Response
+
+The response may be of two types:
+- ConfirmEmailSuccessfulResponse : in case of success
+- ErrorResponse : in case of error
+"""
+union ConfirmEmailResponse = ConfirmEmailSuccessfulResponse | ErrorResponse

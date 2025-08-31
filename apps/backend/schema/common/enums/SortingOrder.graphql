@@ -1,0 +1,14 @@
+"""
+Sorting Order
+"""
+enum SortingOrder {
+    """
+    Ascending order
+    """
+    Asc
+
+    """
+    Descending order
+    """
+    Desc
+}

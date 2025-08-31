@@ -1,0 +1,55 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalPassThroughEnv": ["APP_*", "DOTENV_DISABLE", "SENTRY_AUTH_TOKEN", "VITE_COVERAGE"],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["build/**"]
+    },
+    "storybook:build": {
+      "dependsOn": ["^prepare"],
+      "outputs": ["storybook-static/**"]
+    },
+    "@appvantageasia/backend#build": {
+      "dependsOn": ["^build", "@appvantageasia/backend#prepare"],
+      "outputs": ["build/**"]
+    },
+    "@appvantageasia/console#build": {
+      "dependsOn": ["^build", "@appvantageasia/console#prepare"],
+      "outputs": ["build/**", "report.html"]
+    },
+    "lint": {
+      "outputs": ["eslint-report.json"],
+      "dependsOn": ["@appvantageasia/eslint-config#build"]
+    },
+    "lint:types": {
+      "outputs": ["typescript-report.json"]
+    },
+    "test": {
+      "outputs": ["coverage/**"]
+    },
+    "prepare":{
+      "dependsOn": ["^prepare"]
+    },
+    "@appvantageasia/console#prepare": {
+      "outputs": [
+        "src/apolloClient.introspection.ts",
+        "src/apolloClient.types.ts",
+        "src/**/*.api.ts"
+      ]
+    },
+    "@appvantageasia/backend#prepare": {
+      "outputs": [
+        "src/apolloServer/resolver-types.ts",
+        "src/apolloServer/schema-ast.graphql"
+      ]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "clean": {
+      "cache": false
+    }
+  }
+}

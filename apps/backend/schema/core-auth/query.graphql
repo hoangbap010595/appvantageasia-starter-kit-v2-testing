@@ -1,0 +1,21 @@
+extend type Query {
+    currentUser: User
+    userSessions(id: ObjectID!, pagination: Pagination): PaginatedUserSession!
+
+    """
+    Generate authenticator qrcode
+    """
+    generateAuthenticatorQrCode: String!
+
+    """
+    Get MSAL login URL
+    """
+    # eslint-disable-next-line @graphql-eslint/naming-convention
+    MSALUrl: String
+
+    """
+    Get OIDC login URL
+    """
+    # eslint-disable-next-line @graphql-eslint/naming-convention
+    OIDCUrl: String
+}

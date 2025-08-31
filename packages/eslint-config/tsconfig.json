@@ -1,0 +1,5 @@
+{
+  "extends": "@appvantageasia/tsconfig/node-only.json",
+  "include": ["./src"],
+  "exclude": ["build", "node_modules"]
+}

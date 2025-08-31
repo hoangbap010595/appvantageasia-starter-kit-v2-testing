@@ -1,0 +1,9 @@
+"""
+Basic Authentication Successful Response
+
+This is the response returned from a successful basic authentication request.
+"""
+type BasicAuthenticationSuccessfulResponse {
+    token: String!
+    user: User!
+}

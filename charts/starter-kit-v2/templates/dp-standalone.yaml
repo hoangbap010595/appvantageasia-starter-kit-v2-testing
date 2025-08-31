@@ -1,0 +1,92 @@
+{{- if .Values.standalone.enabled }}
+{{- $selectorLabels := include "app.selectorLabels" . -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-standalone
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "app.labels" . | nindent 4 }}
+spec:
+  {{- with .Values.global.deploymentStrategy }}
+  strategy:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  replicas: {{ include "app.deploymentReplicas" .Values.standalone.horizontalPodAutoscaler }}
+  selector:
+    matchLabels:
+      {{- $selectorLabels | nindent 6 }}
+      app.kubernetes.io/component: standalone
+      app.kubernetes.io/svc: server
+  template:
+    metadata:
+      labels:
+        {{- if .Values.global.extraLabels }}
+        {{- toYaml .Values.global.extraLabels | nindent 8 }}
+        {{- end }}
+        {{- $selectorLabels | nindent 8 }}
+        app.kubernetes.io/component: standalone
+        app.kubernetes.io/svc: server
+      {{- if or (.Values.standalone.annotations) (.Values.global.rollWorkload) }}
+      annotations:
+        {{- include "app.rollWorkloadAnnotations" . | nindent 8 }}
+        {{- if .Values.standalone.annotations }}
+        {{- toYaml .Values.standalone.annotations | nindent 8 }}
+        {{- end }}
+      {{- end }}
+    spec:
+      {{- if gt (len .Values.global.image.pullSecret) 0 }}
+      imagePullSecrets:
+        {{- range .Values.global.image.pullSecret }}
+          - name: {{ . }}
+        {{- end }}
+      {{- end }}
+      serviceAccountName: {{ include "app.serviceAccountName" . }}
+      containers:
+        - name: server
+          image: {{ include "app.image" .Values.global.image }}
+          imagePullPolicy: {{ .Values.global.image.pullPolicy }}
+          command: [ "node", "-r", "@sentry/node/preload", "index.js", "standalone" ]
+          envFrom:
+            - secretRef:
+                name: {{ .Release.Name }}-env
+            {{- with .Values.global.extraEnvs }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          startupProbe:
+            grpc:
+              port: {{ .Values.settings.healthMonitor.port | default "50051" }}
+          livenessProbe:
+            grpc:
+              port: {{ .Values.settings.healthMonitor.port | default "50051" }}
+          readinessProbe:
+            grpc:
+              port: {{ .Values.settings.healthMonitor.port | default "50051" }}
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+          {{- with .Values.standalone.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with .Values.standalone.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.standalone.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.standalone.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              {{- $selectorLabels | nindent 14 }}
+{{- end }}

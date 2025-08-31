@@ -1,0 +1,18 @@
+{
+  "featuresGroup": {
+    "title": "Features",
+    "items": {
+      "dashboard": "Dashboard",
+      "inbox": "Inbox",
+      "404": "Content Not Found (404)",
+      "500": "Error (500)"
+    }
+  },
+  "accountGroup": {
+    "title": "Account",
+    "items": {
+      "authentication": "Authentication",
+      "signout": "Sign Out"
+    }
+  }
+}

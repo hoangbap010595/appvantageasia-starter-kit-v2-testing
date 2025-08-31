@@ -1,0 +1,118 @@
+{
+  "title": "Sign in to your account",
+  "form": {
+    "fields": {
+      "email": "Email",
+      "password": "Password"
+    },
+    "buttons": {
+      "submit": "Sign In"
+    }
+  },
+  "msalStep": {
+    "title": "Sign In to Your Account with Microsoft"
+  },
+  "oidcStep": {
+    "title": "Sign In to Your Account with SSO"
+  },
+  "authenticateStep": {
+    "title": "Sign In to Your Account",
+    "fields": {
+        "email": {
+          "label": "Email Address"
+        },
+        "password": {
+          "label": "Password"
+        }
+    },
+    "submitBtn": "Sign In",
+    "submitting": "Signing In",
+    "forgotPasswordLink": "Forgot password?",
+    "microsoftButton": "Sign In with Microsoft",
+    "oidcButton": "Sign In with SSO"
+  },
+  "requestNewPassword": {
+    "title": "Forgot Password",
+    "fields": {
+       "email": {
+          "label": "Email Address"
+       }
+    },
+    "submitBtn": "Forgot Password",
+    "authenticateLink": "Back",
+    "successMessage": "Request Sent. You will receive an email if your account exists in our system.",
+    "submitting": "Requesting.."
+  },
+  "setupPassword": {
+    "title": "Setup your Password",
+    "description": "Welcome to Auto Retail Centre. Please setup your password to activate your account.",
+    "fields": {
+        "password": {
+            "placeholder": "Password"
+        },
+        "passwordRepeat": {
+            "placeholder": "Confirm Password"
+        }
+    },
+    "submitBtn": "Activate",
+    "successMessage": "Your account has been created, you may now try to sign in.",
+    "authenticateLink": "Sign In"
+  },
+  "newPassword": {
+    "title": "New Password",
+    "fields": {
+        "password": {
+            "label": "Password"
+        },
+        "passwordRepeat": {
+            "label": "Confirm Password"
+        }
+    },
+    "submitBtn": "Update & Continue",
+    "authenticateLink": "Sign In",
+    "successMessage": "Your password has been updated, you may now try to sign in.",
+    "submitting": "Updating.."
+  },
+  "passwordSettings": {
+    "requirements": {
+        "title": "Password Requirements",
+        "error": {
+            "atLeastUpperCase": "At least {{min}} upper case letter {{range}}",
+            "atLeastLowerCase": "At least {{min}} lower case letter {{range}}",
+            "atLeastNumber": "At least {{min}} numeral {{range}}",
+            "atLeastSpecialCharacter": "At least {{min}} special character {{range}}",
+            "atLeastCharacter": "At least {{size}} characters",
+            "atLeastIdenticalCharInRow": "No more than {{max}} identical characters in a row"
+        }
+    }
+  },
+  "smsOtpStep": {
+    "title": "Authentication",
+    "description": "A One-Time-Password has been sent to your mobile.",
+    "submittingMessage": "Verifying..",
+    "submitBtn": "Submit",
+    "resendOTP_zero": "<0>Resend OTP</0>",
+    "resendOTP": "<0>Resend OTP</0> ({{count}})"
+  },
+  "totpStep": {
+    "title": "Two-Factor Authentication (2FA)",
+    "description": "Please enter the 6-digit code from your authentication app.",
+    "fields": {
+      "code": {
+          "placeholder": "Enter Code"
+      }
+    },
+    "submitBtn": "Submit",
+    "submitting": "Submitting"
+  },
+  "signInExpiredToken": {
+    "title": "Session Expired",
+    "description": "Due to inactivity, your session has expired. Please try again.",
+    "authenticateLink": "Sign In"
+  },
+  "forgotPasswordExpiredToken": {
+    "title": "Forgot Password",
+    "description": "The link has expired. Please try again.",
+    "authenticateLink": "Sign In"
+  }
+}

@@ -1,0 +1,18 @@
+{{- if .Values.worker.horizontalPodAutoscaler.enabled }}
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: "{{ .Release.Name }}-worker"
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "app.labels" . | nindent 4 }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: "{{ .Release.Name }}-server"
+  minReplicas: {{ .Values.worker.horizontalPodAutoscaler.minReplicas }}
+  maxReplicas: {{ .Values.worker.horizontalPodAutoscaler.maxReplicas }}
+  behavior: {{ .Values.worker.horizontalPodAutoscaler.behavior}}
+  metrics: {{ .Values.worker.horizontalPodAutoscaler.metrics }}
+{{- end }}

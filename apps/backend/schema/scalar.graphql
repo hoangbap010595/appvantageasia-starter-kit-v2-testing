@@ -1,0 +1,20 @@
+"""
+ObjectID
+
+GraphQL ID-Type for MongoDB ID
+"""
+scalar ObjectID
+
+"""
+Upload
+
+GraphQL Upload-Type for File Uploads
+"""
+scalar Upload
+
+"""
+DateTime
+
+GraphQL DateTime-Type for Dates
+"""
+scalar DateTime

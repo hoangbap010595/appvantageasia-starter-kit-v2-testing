@@ -1,0 +1,34 @@
+{
+  "name": "@appvantageasia/service-notifications",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./src/index.ts",
+  "types": "./src/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "clean": "yarn rimraf -g \"src/**/*.d.ts\" ./eslint-report.json ./typescript-report.json -g \"*.tsbuildinfo\"",
+    "lint": "eslint",
+    "lint:types": "yarn node $PROJECT_CWD/packages/devtools/build/github-actions/typescript-checker.js"
+  },
+  "devDependencies": {
+    "@appvantageasia/eslint-config": "*",
+    "@appvantageasia/tsconfig": "*",
+    "eslint": "^9.31.0",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@appvantageasia/core-auth": "*",
+    "@appvantageasia/core-bull": "*",
+    "@appvantageasia/core-dataloaders": "*",
+    "@appvantageasia/core-emails": "*",
+    "@appvantageasia/core-node-utils": "*",
+    "@appvantageasia/core-trail": "*",
+    "@appvantageasia/core-users": "*",
+    "dayjs": "^1.11.13",
+    "lodash": "^4.17.21",
+    "mongodb": "^6.18.0",
+    "nanoid": "^5.1.5",
+    "url-join": "^5.0.0"
+  }
+}

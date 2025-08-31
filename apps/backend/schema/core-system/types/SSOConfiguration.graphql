@@ -1,0 +1,4 @@
+"""
+SSO Configuration
+"""
+union SSOConfiguration = OIDCConfiguration | MSALConfiguration

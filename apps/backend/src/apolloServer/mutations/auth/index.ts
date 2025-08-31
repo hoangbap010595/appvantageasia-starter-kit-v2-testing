@@ -1,0 +1,16 @@
+export { default as extendSession } from './extendSession.js';
+export { default as runBasicAuthentication } from './runBasicAuthentication.js';
+export { default as updateProfile } from '../user/updateProfile.js';
+export { default as changePassword } from './changePassword.js';
+export { default as enableAuthenticator } from './enableAuthenticator.js';
+export { default as disableAuthenticator } from './disableAuthenticator.js';
+export { default as changeEmail } from './changeEmail.js';
+export { default as verifyOtp } from '../user/verifyOtp.js';
+export { default as confirmEmail } from './confirmEmail.js';
+export { default as authenticateWithOtp } from './authenticateWithOtp.js';
+export { default as authenticateWithResetPassword } from './authenticateWithResetPassword.js';
+export { default as requestNewPassword } from './requestNewPassword.js';
+export { default as resetPassword } from './resetPassword.js';
+export { default as revokeSession } from '../user/revokeSession.js';
+export { default as authenticateWithOIDC } from './authenticateWithOIDC.js';
+export { default as authenticateWithMSAL } from './authenticateWithMSAL.js';

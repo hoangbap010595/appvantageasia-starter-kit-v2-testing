@@ -1,0 +1,88 @@
+{
+  "title": "System Management",
+  "tabs": {
+    "sso": "SSO",
+    "auditTrail": "Audit Trail"
+  },
+  "sections": {
+    "auditTrail": {
+      "notice": "The Audit Trail provides a detailed record of system activities and user actions, ensuring transparency, accountability, and compliance. It includes information such as who performed an action, what action was performed, and when it occurred. This data can be exported as a JSON file, allowing for easy review, analysis, or integration with other systems.",
+      "downloadButton": "Download Audit Trail"
+    },
+    "ssoImplementation": {
+      "title": "Implementation",
+      "fields": {
+        "protocol": {
+          "label": "Protocol"
+        }
+      },
+      "ssoTypes": {
+        "msal": {
+          "label": "Microsoft Azure",
+          "description": "Microsoft Authentication Library (MSAL) is a library that helps you to obtain tokens from Azure AD and AAD B2C."
+        },
+        "oidc": {
+          "label": "OpenID",
+          "description": "OpenID Connect (OIDC) is an authentication layer on top of OAuth 2.0, an authorization framework."
+        },
+        "none": {
+          "label": "None",
+          "description": "No SSO implementation is enabled."
+        }
+      }
+    },
+    "ssoConfiguration": {
+      "title": "Configuration",
+      "oidcFields": {
+        "clientId": {
+          "label": "Client ID",
+          "helpElement": "The client ID is a public identifier for apps. It is used to build login URLs and identify the application."
+        },
+        "clientSecret": {
+          "label": "Client Secret",
+          "helpElement": "The client secret is a secret known only to the application and the authorization server."
+        },
+        "endpoint": {
+          "label": "Issuer",
+          "helpElement": "The URL of the OpenID Connect provider."
+        }
+      },
+      "callback": {
+        "label": "Callback URL",
+        "helpElement": "Please provide the following information as callback to your IT administrator to configure on the identity provider "
+      },
+      "msalFields": {
+        "authority": {
+          "label": "Authority",
+          "helpElement": "The authority is the URL of the Azure AD tenant."
+        },
+        "clientId": {
+          "label": "Client ID",
+          "helpElement": "The client ID is a public identifier for apps. It is used to build login URLs and identify the application."
+        },
+        "clientSecret": {
+          "label": "Client Secret",
+          "helpElement": "The client secret is a secret known only to the application and the authorization server."
+        }
+      }
+    },
+    "ssoBehavior": {
+      "title": "Behavior",
+      "fields": {
+        "enforced": {
+          "label": "Enforced",
+          "helpElement": "If enabled, users will be required to sign in using SSO and basic authentication will not be available anymore."
+        }
+      }
+    }
+  },
+  "actions": {
+    "update": "Update",
+    "updating": "Updating"
+  },
+  "updateConfirm": {
+    "title": "Confirmation",
+    "content": "Do you really wish to change this slug? Upon confirmation you will be redirected to the Login screen of the new slug."
+  },
+  "updateSuccessful": "System updated"
+}

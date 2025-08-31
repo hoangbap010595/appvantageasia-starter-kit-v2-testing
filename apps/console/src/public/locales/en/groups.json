@@ -1,0 +1,30 @@
+{
+    "title": "Group Management",
+    "columns": {
+        "name": "Name",
+        "parentGroup": "Parent Group"
+    },
+    "empty": "No Groups",
+    "actions": {
+        "new": "New Group"
+    },
+    "newGroupModal": {
+        "title": "New Group",
+        "fields": {
+            "groupName": {
+                "label": "Name"
+            },
+            "parentGroup": {
+                "label": "Parent Group"
+            }
+        },
+        "create":"Create",
+        "creating":"Creating",
+        "createSuccessful": "Group created"
+    },
+    "deleteModal": {
+        "title": "Deletion",
+        "content": "Do you confirm to remove the assigned users from this group and remove this group from the organization? This action cannot be reverted.",
+        "createSuccessful": "Group deleted"
+    }
+}

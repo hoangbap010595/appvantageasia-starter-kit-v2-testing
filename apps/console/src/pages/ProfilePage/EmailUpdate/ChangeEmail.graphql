@@ -1,0 +1,14 @@
+mutation ChangeEmail($newEmail: String!) {
+    changeEmail(newEmail: $newEmail) {
+        ... on ChangeEmailSuccessfulResponse {
+            result
+        }
+
+        ... on ErrorResponse {
+            fields {
+                field
+                message
+            }
+        }
+    }
+}

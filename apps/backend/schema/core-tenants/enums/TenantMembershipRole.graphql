@@ -1,0 +1,7 @@
+"""
+Tenant Membership Role
+"""
+enum TenantMembershipRole {
+    Admin
+    User
+}

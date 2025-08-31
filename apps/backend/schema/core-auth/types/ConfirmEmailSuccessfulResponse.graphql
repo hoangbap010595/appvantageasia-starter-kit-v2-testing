@@ -1,0 +1,8 @@
+"""
+Confirm Email Successful Response
+
+This is the response returned from a successful confirm email request.
+"""
+type ConfirmEmailSuccessfulResponse {
+    result: Boolean!
+}

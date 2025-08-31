@@ -1,0 +1,19 @@
+name: Pull Request Validation
+
+on:
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+
+jobs:
+  main:
+    name: Main
+    uses: ./.github/workflows/template-main.yml
+    secrets: inherit
+    with:
+      skip-tests: ${{ ! contains(github.event.pull_request.title, '[tests]') }}
+      cypress-visual-testing: ${{ contains(github.event.pull_request.title, '[visual]') }}
+      cypress-recording: ${{ contains(github.event.pull_request.title, '[record]') }}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true

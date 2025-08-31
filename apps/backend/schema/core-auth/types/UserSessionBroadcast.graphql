@@ -1,0 +1,7 @@
+"""
+UserSessionBroadcast is a type that represents a broadcast message that is sent to all subscribers
+when a user session is revoked
+"""
+type UserSessionBroadcast {
+    revokeSession: Boolean
+}

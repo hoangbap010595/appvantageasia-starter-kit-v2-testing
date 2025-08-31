@@ -1,0 +1,24 @@
+"""
+MSAL Configuration
+"""
+type MSALConfiguration {
+    """
+    If true, the MSAL configuration is enforced over basic authentication.
+    """
+    enforced: Boolean!
+
+    """
+    Authority URL
+    """
+    authority: String!
+
+    """
+    Client ID
+    """
+    clientId: String!
+
+    """
+    Callback URL
+    """
+    callback: String!
+}

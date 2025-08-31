@@ -1,0 +1,40 @@
+{
+  "name": "@appvantageasia/eslint-config",
+  "version": "0.0.0",
+  "main": "build/index.js",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "eslint",
+    "lint:types": "yarn node $PROJECT_CWD/packages/devtools/build/github-actions/typescript-checker.js",
+    "clean": "yarn rimraf -rf build ./tsconfig.tsbuildinfo ./typescript-report.json ./eslint-report.json",
+    "build": "tsc ./src/**/*.ts --skipLibCheck --esModuleInterop --declaration --outDir ./build --module nodenext",
+    "build:watch": "yarn build --watch"
+  },
+  "dependencies": {
+    "@babel/core": "^7.28.0",
+    "@babel/eslint-parser": "^7.28.0",
+    "@babel/preset-env": "^7.28.0",
+    "@babel/preset-react": "^7.27.1",
+    "@babel/preset-typescript": "^7.27.1",
+    "@typescript-eslint/eslint-plugin": "^8.38.0",
+    "@typescript-eslint/parser": "^8.38.0",
+    "eslint": "^9.31.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-import-resolver-typescript": "^4.4.4",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-prettier": "^5.5.3",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "prettier": "^3.6.2",
+    "typescript-eslint": "^8.38.0"
+  },
+  "devDependencies": {
+    "@appvantageasia/tsconfig": "*",
+    "@types/eslint-plugin-jsx-a11y": "^6.10.0",
+    "@typescript-eslint/utils": "^8.38.0",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.8.3"
+  }
+}

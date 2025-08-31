@@ -1,0 +1,8 @@
+"""
+Enable Authenticator Successful Response
+
+This is the response returned from a successful enable authentication request.
+"""
+type EnableAuthenticatorSuccessfulResponse {
+    result: Boolean!
+}

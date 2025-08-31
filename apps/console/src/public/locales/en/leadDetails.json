@@ -1,0 +1,186 @@
+{
+    "title": "Lead Details",
+    "tabs": {
+        "lead": "Lead",
+        "activityLog": "Activity Log"
+    },
+    "sections": {
+        "mainDetails": {
+            "title": "Main Details",
+            "fields": {
+                "leadId": {
+                    "label": "Lead ID"
+                },
+                "dealer": {
+                    "label": "Dealer"
+                },
+                "createdBy": {
+                    "label": "Created By"
+                },
+                "dateCreated": {
+                    "label": "Date Created"
+                },
+                "assignedTo": {
+                    "label": "Assigned to"
+                },
+                "intent": {
+                    "label": "Intent"
+                },
+                "eligible": {
+                    "label": "Eligible"
+                },
+                "leadStatus": {
+                    "label": "Lead Status"
+                },
+                "rescheduleDuration": {
+                    "label": "Reschedule Duration"
+                },
+                "nextNoticeType": {
+                    "label": "Periodic Email"
+                },
+                "lastActivity": {
+                    "label": "Last Activity"
+                }
+            }
+        },
+        "customerDetails": {
+            "title": "Customer Details",
+            "fields": {
+                "title": {
+                    "label": "Title"
+                },
+                "firstName": {
+                    "label": "First Name"
+                },
+                "lastName": {
+                    "label": "Last Name"
+                },
+                "email": {
+                    "label": "Email"
+                },
+                "mobile": {
+                    "label": "Mobile No."
+                },
+                "address": {
+                    "label": "Address"
+                },
+                "unitNumber": {
+                    "label": "Unit Number"
+                },
+                "postalCode": {
+                    "label": "Postal Code"
+                },
+                "city": {
+                    "label": "City"
+                },
+                "region": {
+                    "label": "Region"
+                },
+                "country": {
+                    "label": "Country"
+                }
+            }
+        },
+        "vehicleDetails": {
+            "title": "Vehicle Details",
+            "fields": {
+                "variantName": {
+                "label": "Variant Name"
+                },
+                "variantId": {
+                    "label": "Variant ID"
+                },
+                "registrationYear": {
+                    "label": "Registration Year"
+                },
+                "vin": {
+                    "label": "VIN"
+                }
+            }
+        },
+        "financingDetails": {
+            "title": "Financing Details",
+            "fields": {
+                "purchase": {
+                    "label": "Price"
+                },
+                "interestRate": {
+                    "label": "Interest Rate %"
+                },
+                "paymentTerm": {
+                    "label": "Payment Term"
+                },
+                "downpayment": {
+                    "label": "Downpayment"
+                },
+                "loanAmount": {
+                    "label": "Loan Amount"
+                },
+                "totalPrice": {
+                    "label": "Total Price"
+                },
+                "monthlyPayment": {
+                    "label": "Monthly Payment"
+                },
+                "maturityDate": {
+                    "label": "Maturity Date"
+                },
+                "termsRemaining": {
+                    "label": "Terms Remaining"
+                },
+                "remainingLoan": {
+                    "label": "Remaining Loan"
+                },
+                "estimatedTradeIn": {
+                    "label": "Estimated Trade-in"
+                },
+                "equity": {
+                    "label": "Equity"
+                },
+                "financingStatus": {
+                    "label": "Financing Status"
+                }
+            }
+        }
+    },
+    "rescheduleDuration": {
+        "month": "{{month}} month",
+        "months": "{{month}} months",
+        "year": "1 year"
+    },
+    "nextNoticeTypeValue": {
+        "HalfYearly": "Half-Yearly",
+        "Quarterly": "Quarterly",
+        "Unsubscribed": "Unsubscribed",
+        "none": "None"
+    },
+    "actions": {
+        "update": "Update"
+    },
+    "createSuccessful": "Lead updated",
+    "activityLog": {
+        "columns": {
+            "dateTime": "Date/Time",
+            "actor": "Actor",
+            "activity": "Activity"
+        },
+        "download": {
+            "action": "Download",
+            "filename": "ActivityLogs_{{id}}.csv",
+            "successful": "Downloaded activity logs."
+        },
+        "addNote": {
+            "action": "Add Note",
+            "modal": {
+                "title": "Add Note",
+                "description":  {
+                    "label": "Description"
+                },
+                "save": "Save",
+                "saving": "Saving",
+                "createSuccessful": "Added Note"
+            }
+        }
+    }
+}
+    

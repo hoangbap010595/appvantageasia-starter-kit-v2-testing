@@ -1,0 +1,16 @@
+query FetchUserSessions($id: ObjectID!, $pagination: Pagination) {
+    lists: userSessions(id: $id, pagination: $pagination) {
+        count
+        items {
+            ...UserSessionData
+        }
+    }
+}
+
+fragment UserSessionData on UserSession {
+    id
+    isValid
+    lastActivityAt
+    userAgent
+    ip
+}

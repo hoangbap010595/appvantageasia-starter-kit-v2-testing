@@ -1,0 +1,13 @@
+{
+  "extends": "@appvantageasia/tsconfig/browser-react.json",
+  "include": [".", ".storybook/**/*"],
+  "exclude": ["build", "node_modules", "storybook-static"],
+  "compilerOptions": {
+    "allowJs": true,
+    "maxNodeModuleJsDepth": 10,
+    "noEmit": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}

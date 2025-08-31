@@ -1,0 +1,26 @@
+{
+  "name": "@appvantageasia/e2e-emails",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "scripts": {
+    "clean": "yarn rimraf -g \"src/**/*.d.ts\" ./eslint-report.json ./typescript-report.json -g \"*.tsbuildinfo\"",
+    "lint": "eslint",
+    "lint:types": "yarn node $PROJECT_CWD/packages/devtools/build/github-actions/typescript-checker.js"
+  },
+  "devDependencies": {
+    "@appvantageasia/devtools": "*",
+    "@appvantageasia/eslint-config": "*",
+    "@appvantageasia/tsconfig": "*",
+    "@types/node": "^24.1.0",
+    "eslint": "^9.31.0",
+    "prettier": "^3.6.2",
+    "rimraf": "^6.0.1"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2",
+    "typescript": "^5.8.3",
+    "url-join": "^5.0.0"
+  }
+}

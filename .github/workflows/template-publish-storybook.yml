@@ -1,0 +1,59 @@
+name: Template - Deploy
+
+on:
+  workflow_call:
+    inputs:
+      aws-region:
+        required: true
+        type: string
+      aws-role-arn:
+        required: true
+        type: string
+      aws-bucket:
+        required: true
+        type: string
+      aws-object-prefix:
+        type: string
+        default: ""
+      version:
+        required: true
+        type: string
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      pull-requests: write
+      contents: write
+      issues: write
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ inputs.aws-role-arn }}
+          aws-region: ${{ inputs.aws-region }}
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.14.0
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn --immutable
+
+      - name: Prepare
+        run: yarn prepare
+        working-directory: ./apps/console
+
+      - name: Build
+        run: yarn storybook:build
+
+      - name: Upload to S3
+        run: aws s3 cp ./storybook-static s3://${{ inputs.aws-bucket }}/${{ inputs.aws-object-prefix }}${{ inputs.version }} --recursive
+        working-directory: ./apps/console

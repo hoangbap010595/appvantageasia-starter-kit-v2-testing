@@ -1,0 +1,48 @@
+{
+  "name": "@appvantageasia/starter-kit-v2",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "license": "UNLICENSED",
+  "author": {
+    "name": "Appvantage",
+    "email": "devs@appvantage.asia",
+    "url": "https://www.appvantage.co"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "services/*"
+  ],
+  "scripts": {
+    "clean": "turbo run clean",
+    "prepare": "turbo run prepare",
+    "build": "turbo run build",
+    "build:image": "node ./packages/devtools/build/commands/build-image.js",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "lint:types": "turbo run lint:types",
+    "test": "turbo run test",
+    "storybook:build": "turbo run storybook:build"
+  },
+  "devDependencies": {
+    "@semantic-release/commit-analyzer": "^13.0.1",
+    "@semantic-release/github": "^11.0.3",
+    "@semantic-release/release-notes-generator": "^14.0.3",
+    "conventional-changelog-conventionalcommits": "^9.1.0",
+    "semantic-release": "^24.2.7",
+    "turbo": "^2.5.5",
+    "wait-on": "^8.0.3"
+  },
+  "resolutions": {
+    "@types/react": "^19.1.6",
+    "ioredis": "^5.6.1",
+    "express": "^4.21.2",
+    "internal-slot": "^1.1.0",
+    "caniuse-lite": "^1.0.30001726"
+  },
+  "packageManager": "yarn@4.9.2"
+}

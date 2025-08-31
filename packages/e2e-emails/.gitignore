@@ -1,0 +1,4 @@
+/build
+/node_modules
+/eslint-report.json
+/typescript-report.json

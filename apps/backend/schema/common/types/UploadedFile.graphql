@@ -1,0 +1,7 @@
+"""
+Uploaded File
+"""
+type UploadedFile {
+    id: ObjectID!
+    url: String!
+}

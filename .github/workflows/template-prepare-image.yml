@@ -1,0 +1,74 @@
+name: Template - Prepare docker images
+
+on:
+  workflow_call:
+    outputs:
+      image:
+        description: The docker image name
+        value: ${{ jobs.build.outputs.image }}
+    inputs:
+      src:
+        required: true
+        type: string
+      name:
+        required: true
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    outputs:
+      image: ${{ steps.resolutions.outputs.name }}
+
+    steps:
+      - name: Check Out Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Resolve sha1 and check if image exists
+        id: resolutions
+        run: |
+          VALUE=$(git log -1 --format=%h -- '${{ inputs.src }}')
+          echo "tag=${{ inputs.name }}-$VALUE" >> "$GITHUB_OUTPUT"
+          
+          NAME="ghcr.io/${{ github.repository }}:${{ inputs.name }}-$VALUE"
+          echo "name=$NAME" >> "$GITHUB_OUTPUT"
+          
+          if docker pull $NAME
+          then
+            echo "build=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "build=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        if: steps.resolutions.outputs.build == 'true'
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository }}
+          flavor: |
+            latest=false
+          tags: |
+            type=raw,value=${{ steps.resolutions.outputs.tag }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        if: steps.resolutions.outputs.build == 'true'
+        with:
+          context: ${{ inputs.src }}
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}

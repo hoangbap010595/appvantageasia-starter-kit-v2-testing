@@ -1,0 +1,9 @@
+{
+  "all": true,
+  "include": ["**/src/**"],
+  "exclude-after-remap": true,
+  "allow-external": true,
+  "reporter": ["json", "html"],
+  "excludeNodeModules": true,
+  "merge-async": true
+}

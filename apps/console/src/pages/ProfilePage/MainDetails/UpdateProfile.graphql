@@ -1,0 +1,14 @@
+mutation UpdateProfile($name: String!) {
+    updateProfile(name: $name) {
+        ... on UpdateProfileSuccessfulResponse {
+            result
+        }
+
+        ... on ErrorResponse {
+            fields {
+                field
+                message
+            }
+        }
+    }
+}

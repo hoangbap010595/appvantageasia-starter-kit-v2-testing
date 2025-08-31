@@ -1,0 +1,11 @@
+{
+  "extends": "@appvantageasia/tsconfig/node-react.json",
+  "include": ["."],
+  "exclude": ["build", "node_modules"],
+  "compilerOptions": {
+    "allowJs": true,
+    "maxNodeModuleJsDepth": 10,
+    "types": ["node"],
+    "noEmit": true
+  }
+}

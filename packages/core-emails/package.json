@@ -1,0 +1,41 @@
+{
+  "name": "@appvantageasia/core-emails",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./src/index.tsx",
+  "types": "./src/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "clean": "yarn rimraf -g \"src/**/*.d.ts\" ./eslint-report.json ./typescript-report.json -g \"*.tsbuildinfo\" .react-email",
+    "dev": "yarn email dev",
+    "lint": "eslint",
+    "lint:types": "yarn node $PROJECT_CWD/packages/devtools/build/github-actions/typescript-checker.js"
+  },
+  "devDependencies": {
+    "@appvantageasia/eslint-config": "*",
+    "@appvantageasia/tsconfig": "*",
+    "@types/graphql-upload": "^17.0.0",
+    "@types/mime-types": "^3.0.1",
+    "@types/nodemailer": "^6.4.17",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "eslint": "^9.31.0",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@appvantageasia/core-auth": "*",
+    "@appvantageasia/core-aws-credentials": "*",
+    "@appvantageasia/core-utils": "*",
+    "@aws-sdk/client-ses": "^3.848.0",
+    "@react-email/components": "^0.3.2",
+    "@react-email/render": "^1.1.3",
+    "clsx": "^2.1.1",
+    "dayjs": "^1.11.13",
+    "nodemailer": "^7.0.5",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-email": "^4.2.3",
+    "url-join": "^5.0.0"
+  }
+}

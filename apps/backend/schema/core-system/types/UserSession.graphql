@@ -1,0 +1,12 @@
+"""
+User Session
+
+User Session is a session that a user has with the system.
+"""
+type UserSession {
+    id: ObjectID!
+    isValid: Boolean!
+    lastActivityAt: DateTime!
+    userAgent: String
+    ip: String
+}

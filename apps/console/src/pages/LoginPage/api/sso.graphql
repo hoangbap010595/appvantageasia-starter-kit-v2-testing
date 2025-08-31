@@ -1,0 +1,19 @@
+query MSALUrl {
+    url: MSALUrl
+}
+
+query OIDCUrl {
+    url: OIDCUrl
+}
+
+mutation AuthWithMSAL($code: String!) {
+    runBasicAuthentication: authenticateWithMSAL(code: $code) {
+        ...BasicAuthenticationResponseData
+    }
+}
+
+mutation AuthWithOIDC($code: String!, $state: String) {
+    runBasicAuthentication: authenticateWithOIDC(code: $code, state: $state) {
+        ...BasicAuthenticationResponseData
+    }
+}

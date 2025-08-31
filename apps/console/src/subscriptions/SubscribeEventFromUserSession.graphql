@@ -1,0 +1,5 @@
+subscription SubscribeEventFromUserSession($token: String!) {
+    eventFromUserSession(token: $token) {
+        ...BroadcastSpecs
+    }
+}

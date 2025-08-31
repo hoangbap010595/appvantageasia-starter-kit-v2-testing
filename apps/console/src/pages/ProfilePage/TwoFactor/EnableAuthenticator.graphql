@@ -1,0 +1,14 @@
+mutation EnableAuthenticator($token: String!) {
+    enableAuthenticator(token: $token) {
+        ... on EnableAuthenticatorSuccessfulResponse {
+            result
+        }
+
+        ... on ErrorResponse {
+            fields {
+                field
+                message
+            }
+        }
+    }
+}

@@ -1,0 +1,8 @@
+"""
+Update SSO Response
+
+The response may be of two types:
+- UpdateSSOSuccessfulResponse : in case of success
+- ErrorResponse : in case of error
+"""
+union UpdateSSOResponse = UpdateSSOSuccessfulResponse | ErrorResponse

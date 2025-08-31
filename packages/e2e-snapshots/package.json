@@ -1,0 +1,37 @@
+{
+  "name": "@appvantageasia/e2e-snapshots",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/loadSnapshots.ts",
+  "scripts": {
+    "clean": "yarn rimraf -g \"src/**/*.d.ts\" ./eslint-report.json ./typescript-report.json -g \"*.tsbuildinfo\"",
+    "lint": "eslint",
+    "lint:types": "yarn node $PROJECT_CWD/packages/devtools/build/github-actions/typescript-checker.js"
+  },
+  "devDependencies": {
+    "@appvantageasia/devtools": "*",
+    "@appvantageasia/eslint-config": "*",
+    "@appvantageasia/tsconfig": "*",
+    "@types/bcryptjs": "^3.0.0",
+    "@types/node": "^24.1.0",
+    "eslint": "^9.31.0",
+    "prettier": "^3.6.2",
+    "rimraf": "^6.0.1"
+  },
+  "dependencies": {
+    "@appvantageasia/core-database": "*",
+    "@appvantageasia/core-redis": "*",
+    "@faker-js/faker": "^9.9.0",
+    "bcryptjs": "^3.0.2",
+    "bson": "^6.10.4",
+    "chalk": "^5.4.1",
+    "commander": "^14.0.0",
+    "dayjs": "^1.11.13",
+    "glob": "^11.0.3",
+    "mongodb": "^6.18.0",
+    "nanoid": "^5.1.5",
+    "otplib": "^12.0.1",
+    "typescript": "^5.8.3"
+  }
+}

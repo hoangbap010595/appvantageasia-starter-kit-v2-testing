@@ -1,0 +1,11 @@
+"""
+Tenant
+
+Represents an organization or entity in the system.
+"""
+type Tenant {
+    id: ObjectID!
+    name: String!
+    slug: String!
+    users: [TenantMembership!]!
+}

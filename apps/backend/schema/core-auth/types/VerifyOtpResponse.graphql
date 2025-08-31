@@ -1,0 +1,8 @@
+"""
+Verify Otp Response
+
+The response may be of two types:
+- VerifyOtpSuccessfulResponse : in case of success
+- ErrorResponse : in case of error
+"""
+union VerifyOtpResponse = VerifyOtpSuccessfulResponse | ErrorResponse

@@ -1,0 +1,8 @@
+"""
+Update Organization SSO Successful Response
+
+This is the response returned from a successful update organization base info request.
+"""
+type UpdateSSOSuccessfulResponse {
+    result: SSOConfiguration
+}

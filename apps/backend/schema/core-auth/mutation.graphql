@@ -1,0 +1,81 @@
+extend type Mutation {
+    """
+    Mutation to run basic authentication with email, password
+    """
+    runBasicAuthentication(email: String!, password: String!): BasicAuthenticationResponse!
+
+    """
+    Mutation to authenticate with a one-time password (OTP) and password
+    """
+    authenticateWithOtp(token: String!, password: String!): BasicAuthenticationResponse!
+
+    """
+    Mutation to authenticate using a reset password token and new password
+    """
+    authenticateWithResetPassword(token: String!, password: String!): BasicAuthenticationResponse!
+
+    """
+    Mutation to authenticate with Microsoft Authentication Library (MSAL) using a code
+    """
+    authenticateWithMSAL(code: String!): BasicAuthenticationResponse!
+
+    """
+    Mutation to authenticate with OpenID Connect (OIDC) using a code and optional state
+    """
+    authenticateWithOIDC(code: String!, state: String): BasicAuthenticationResponse!
+
+    """
+    Mutation to request a new password for a given email
+    """
+    requestNewPassword(email: String!): RequestNewPasswordResponse!
+
+    """
+    Mutation to reset password using a token and new password
+    """
+    resetPassword(token: String!, password: String!): ResetPasswordResponse!
+
+    """
+    Mutation to extend the current session
+    """
+    extendSession: String!
+
+    """
+    Mutation to revoke a session by its ID
+    """
+    revokeSession(id: ObjectID!): Boolean!
+
+    """
+    Mutation to update the user's profile with a new name
+    """
+    updateProfile(name: String!): UpdateProfileResponse!
+
+    """
+    Mutation to change the user's password from current to new password
+    """
+    changePassword(currentPassword: String!, newPassword: String!): ChangePasswordResponse!
+
+    """
+    Mutation to enable an authenticator using a token
+    """
+    enableAuthenticator(token: String!): EnableAuthenticatorResponse!
+
+    """
+    Mutation to disable the authenticator
+    """
+    disableAuthenticator: Boolean!
+
+    """
+    Mutation to change the user's email to a new email
+    """
+    changeEmail(newEmail: String!): ChangeEmailResponse!
+
+    """
+    Mutation to verify OTP and new email
+    """
+    verifyOtp(code: String!, newEmail: String!): VerifyOtpResponse!
+
+    """
+    Mutation to confirm the new email with password and new email
+    """
+    confirmEmail(password: String!, newEmail: String!): ConfirmEmailResponse!
+}

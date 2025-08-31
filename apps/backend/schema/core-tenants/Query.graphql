@@ -1,0 +1,4 @@
+extend type Query {
+    tenantBySlug(slug: String!): Tenant
+    tenants: [Tenant!]!
+}

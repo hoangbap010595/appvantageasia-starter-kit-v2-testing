@@ -1,0 +1,22 @@
+name: Manual runs
+
+on:
+  workflow_dispatch:
+    inputs:
+      cypress-visual-testing:
+        required: false
+        type: boolean
+        default: false
+      cypress-recording:
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  main:
+    name: Main
+    uses: ./.github/workflows/template-main.yml
+    secrets: inherit
+    with:
+      cypress-recording: ${{ inputs.cypress-recording }}
+      cypress-visual-testing: ${{ inputs.cypress-visual-testing }}

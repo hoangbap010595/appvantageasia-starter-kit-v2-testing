@@ -1,0 +1,7 @@
+"""
+Paginated User Session
+"""
+type PaginatedUserSession {
+    count: Int!
+    items: [UserSession!]!
+}

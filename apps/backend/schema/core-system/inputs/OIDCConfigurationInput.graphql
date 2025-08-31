@@ -1,0 +1,24 @@
+"""
+OpenID Connect Configuration
+"""
+input OIDCConfigurationInput {
+    """
+    If true, the OIDC configuration is enforced over basic authentication.
+    """
+    enforced: Boolean!
+
+    """
+    The OIDC issuer URL.
+    """
+    endpoint: String!
+
+    """
+    Client ID
+    """
+    clientId: String!
+
+    """
+    Client Secret
+    """
+    clientSecret: String
+}

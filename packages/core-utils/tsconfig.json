@@ -1,0 +1,9 @@
+{
+  "extends": "@appvantageasia/tsconfig/node-only.json",
+  "include": ["."],
+  "exclude": ["build", "node_modules"],
+  "compilerOptions": {
+    "types": ["node"],
+    "noEmit": true
+  }
+}

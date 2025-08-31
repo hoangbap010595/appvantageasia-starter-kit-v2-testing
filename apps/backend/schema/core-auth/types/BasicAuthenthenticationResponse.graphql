@@ -1,0 +1,13 @@
+"""
+Basic Authentication Response
+
+The response may be of two types:
+- BasicAuthenticationSuccessfulResponse : in case of success
+- BasicAuthenticationRequireOtpResponse : in case of success
+- ErrorResponse : in case of error
+"""
+union BasicAuthenticationResponse =
+    | BasicAuthenticationSuccessfulResponse
+    | BasicAuthenticationRequireOtpResponse
+    | BasicAuthenticationResetPasswordResponse
+    | ErrorResponse

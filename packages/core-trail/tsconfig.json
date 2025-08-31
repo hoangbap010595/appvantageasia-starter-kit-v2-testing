@@ -1,0 +1,13 @@
+{
+  "extends": "@appvantageasia/tsconfig/node-only.json",
+  "include": ["./src/**/*.ts"],
+  "exclude": ["build", "node_modules"],
+  "compilerOptions": {
+    "types": ["node"],
+    "module": "NodeNext",
+    "declaration": true,
+    "declarationMap": false,
+    "emitDeclarationOnly": true,
+    "sourceMap": false
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "title": "Profile",
+  "tabs": {
+      "mainDetails": "Main Details",
+      "password": "Password",
+      "twoFactorAuthentication": "Authenticator (2FA)",
+      "sessions": "Sessions"
+  },
+  "sections": {
+    "mainDetails": {
+      "title": "Main Details",
+      "fields": {
+        "name": {
+          "label": "Name"
+        },
+        "email": {
+          "label": "Email"
+        },
+        "password": {
+          "label": "Password"
+        }
+      },
+      "update": "Update",
+      "updating": "Updating",
+      "updateSuccessful": "Profile updated"
+    },
+    "password": {
+      "title": "Password",
+      "fields": {
+        "currentPassword": {
+          "label": "Current Password"
+        },
+        "newPassword": {
+            "label": "New Password"
+        },
+        "passwordRepeat": {
+            "label": "Confirm Password"
+        }
+      },
+      "update": "Update",
+      "updating": "Updating",
+      "updateSuccessful": "Password updated"
+    },
+    "2fa": {
+      "title": "Two-Factor authentication",
+      "description":"Two-Factor authentication (2FA) is the best way to protect yourself online. It adds an additional layer of protection beyond passwords.",
+      "setUpAuthenticator": "Set Up Authenticator",
+      "authenticator": "Authenticator",
+      "addedOn": "Added on {{time}}",
+      "stepScan": {
+        "title": "Set Up Authenticator",
+        "text": "Scan the QR Code with your Authenticator",
+        "next": "Next"
+      },
+      "stepConfirm": {
+        "title": "Set Up Authenticator",
+        "text": "Enter the 6-digit code from the authenticator",
+        "placeholder": "Enter Code",
+        "verify": "Verify",
+        "back": "back"
+      },
+      "deletionModal": {
+        "title": "Deletion",
+        "content": "Do you confirm to delete the two-factor authentication?"
+      },
+      "enableSuccessful": "Two-factor authentication enabled",
+      "disableSuccessful": "Two-factor authentication deleted"
+    },
+    "sessions": {
+      "title": "Sessions",
+      "sessionsTable": {
+        "headers": {
+          "device": "Device",
+          "lastActivity": "Last Activity",
+          "actions": ""
+        },
+        "current": "{{at}} (Current)",
+        "signedOut": "{{at}} - Signed out",
+        "deleteSuccessful": "Session removed"
+      }
+    }
+  },
+  "updateEmail": {
+    "action": "Change Email",
+    "stepChange": {
+      "title": "Change Email",
+      "currentEmail": "Current email address: ",
+      "text": "Enter the new email address you would like to associate with your account below. We will send a One Time Password (OTP) to that address.",
+      "newEmailAddress": "New email address",
+      "continue": "Continue",
+      "continuing": "Continuing"
+    },
+    "stepVerify": {
+      "title": "Verify Email",
+      "change": "Change",
+      "text": "We've sent a One Time Password (OTP) to your email address. Please enter it below.",
+      "enterOtp": "Enter OTP ",
+      "continue": "Continue",
+      "continuing": "Continuing",
+      "resendOtp": "Resend OTP"
+    },
+    "stepConfirm": {
+      "title": "Confirm Change Email",
+      "text": "Please enter your password to save the changes.",
+      "previousEmailAddress": "Previous email address",
+      "newEmailAddress": "New email address",
+      "change": "Change",
+      "password": "Password",
+      "update": "Update",
+      "updating": "Updating"
+    },
+     "updateSuccessful": "Email updated"
+  }
+}
+

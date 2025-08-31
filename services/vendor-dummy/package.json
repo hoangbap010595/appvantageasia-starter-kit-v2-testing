@@ -1,0 +1,38 @@
+{
+  "name": "@appvantageasia/service-vendor-dummy",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./src/index.ts",
+  "type": "module",
+  "scripts": {
+    "clean": "yarn rimraf -rf coverage -g \"src/**/*.d.ts\" ./eslint-report.json ./typescript-report.json -g \"*.tsbuildinfo\"",
+    "lint": "eslint",
+    "lint:types": "yarn node $PROJECT_CWD/packages/devtools/build/github-actions/typescript-checker.js",
+    "test": "yarn vitest run",
+    "test:dev": "yarn vitest --ui"
+  },
+  "devDependencies": {
+    "@appvantageasia/devtools": "*",
+    "@appvantageasia/e2e-snapshots": "*",
+    "@appvantageasia/eslint-config": "*",
+    "@appvantageasia/tsconfig": "*",
+    "@types/node": "^24.1.0",
+    "@vitest/coverage-v8": "^3.2.4",
+    "@vitest/ui": "^3.2.4",
+    "eslint": "^9.31.0",
+    "msw": "^2.10.4",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "@appvantageasia/core-broker": "*",
+    "@appvantageasia/core-database": "*",
+    "@appvantageasia/core-system": "*",
+    "lodash": "^4.17.21",
+    "moleculer": "^0.14.35",
+    "mongodb": "^6.18.0",
+    "node-fetch": "^3.3.2",
+    "url-join": "^5.0.0"
+  }
+}

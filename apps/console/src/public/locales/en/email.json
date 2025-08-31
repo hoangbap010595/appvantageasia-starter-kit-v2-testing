@@ -1,0 +1,27 @@
+{
+
+    "unsubscribe": {
+        "invalid": {
+            "title": "Unsubscribed",
+            "description": "This is a invalid unsubscribe link."
+        },
+        "title": "You've unsubscribed",
+        "description": "You'll no longer receive email from starter-kit-v2.",
+        "more": {
+            "info": "Unsubscribed by accident?",
+            "action": "Subscribe again"
+        }
+    },
+    "subscribe": {
+        "invalid": {
+            "title": "Subscribed",
+            "description": "This is a invalid subscribe link."
+        },
+        "title": "You've subscribed",
+        "description": "You'll receive email from starter-kit-v2.",
+        "more": {
+            "info": "Subscribed by accident?",
+            "action": "Unsubscribe again"
+        }
+    }
+}

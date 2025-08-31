@@ -1,0 +1,8 @@
+"""
+Error Response
+
+This is the error response type commonly used in the schema.
+"""
+type ErrorResponse {
+    fields: [ErrorOnField!]
+}

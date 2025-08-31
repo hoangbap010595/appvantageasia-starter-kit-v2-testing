@@ -1,0 +1,3 @@
+mutation ExtendSession {
+    token: extendSession
+}

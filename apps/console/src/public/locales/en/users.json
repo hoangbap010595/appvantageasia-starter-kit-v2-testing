@@ -1,0 +1,43 @@
+{
+    "title": "User Management",
+    "columns": {
+        "userName": "Name",
+        "email": "Email",
+        "numberOfGroups": "Groups",
+        "role": "Role"
+    },
+    "organizationRole": {
+        "owner": "Owner",
+        "administrator": "Administrator",
+        "member": "Member"
+    },
+    "roleUpdatedSuccessMessage": "The organization role of {{name}} has been updated.",
+    "deleteModal": {
+        "title": "Remove User",
+        "content": "Are you sure you want to remove this user from the current organization?",
+        "deletionSuccessMessage": "The user has been removed."
+    },
+    "cancelInvitationModal": {
+        "title": "Cancel User Invitation",
+        "content": "Are you sure you want to cancel the invitation of this user from the current organization?",
+         "cancellationSuccessMessage": "The invitation has been cancelled."
+    },
+    "actions": {
+        "invite": "Invite"
+    },
+    "invitationModal": {
+        "title": "Invite User",
+        "fields": {
+            "email": {
+                "label": "Email Address"
+            },
+            "role": {
+                "label": "Role"
+            }
+        },
+        "send":"Send",
+        "sending":"Sending",
+        "invitationSendSuccessMessage": "The invitation email has been sent, please check."
+    }
+}
+    

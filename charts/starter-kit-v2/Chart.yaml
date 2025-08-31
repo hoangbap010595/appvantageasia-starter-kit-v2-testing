@@ -1,0 +1,13 @@
+apiVersion: v2
+appVersion: 0.0.0
+version: 0.7.0
+name: apvstarterkit
+description: helm chart for Appvantage starter kit
+dependencies:
+  - condition: redis.enabled
+    name: redis
+    repository: oci://registry-1.docker.io/bitnamicharts
+    version: 20.12.1
+sources:
+  - https://github.com/appvantageasia/starter-kit-v2/tree/main/charts/starter-kit-v2
+

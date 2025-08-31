@@ -1,0 +1,3 @@
+query GenerateAuthenticatorQrCode {
+    result: generateAuthenticatorQrCode
+}

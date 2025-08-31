@@ -1,0 +1,30 @@
+mutation RunBasicAuthentication($email: String!, $password: String!) {
+    runBasicAuthentication(email: $email, password: $password) {
+        ...BasicAuthenticationResponseData
+    }
+}
+
+fragment BasicAuthenticationResponseData on BasicAuthenticationResponse {
+    ... on BasicAuthenticationSuccessfulResponse {
+        token
+        user {
+            id
+            ...CurrentUser
+        }
+    }
+
+    ... on BasicAuthenticationResetPasswordResponse {
+        token
+    }
+
+    ... on BasicAuthenticationRequireOtpResponse {
+        token
+    }
+
+    ... on ErrorResponse {
+        fields {
+            field
+            message
+        }
+    }
+}

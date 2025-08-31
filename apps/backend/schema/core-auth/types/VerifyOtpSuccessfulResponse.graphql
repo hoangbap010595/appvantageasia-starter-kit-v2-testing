@@ -1,0 +1,8 @@
+"""
+Verify Otp Successful Response
+
+This is the response returned from a successful verify otp request.
+"""
+type VerifyOtpSuccessfulResponse {
+    result: Boolean!
+}

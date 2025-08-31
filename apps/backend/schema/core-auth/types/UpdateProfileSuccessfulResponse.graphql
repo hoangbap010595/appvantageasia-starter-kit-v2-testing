@@ -1,0 +1,8 @@
+"""
+Update Profile Successful Response
+
+This is the response returned from a successful update profile request.
+"""
+type UpdateProfileSuccessfulResponse {
+    result: Boolean!
+}

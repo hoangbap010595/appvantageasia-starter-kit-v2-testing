@@ -1,0 +1,74 @@
+{
+  "title": "Leads",
+  "backToARC": "Back to PDFS",
+  "stats": {
+    "eligibleLeads": "Eligible Contracts",
+    "assigned": "Assigned",
+    "converted": "Converted",
+    "noInterest": "No Interest"
+  },
+  "columns": {
+    "intent": "Intent",
+    "customer": "Customer",
+    "vehicle": "Vehicle",
+    "year": "Year",
+    "loan": "Loan",
+    "termsLeft": "Terms Left",
+    "rv": "RV",
+    "tradeIn": "Trade-in",
+    "assignee": "Assignee",
+    "status": "Status",
+    "lastActivity": "Last Activity"
+  },
+  "filter": {
+    "lastActivity": "Activity Date Range",
+    "intent": "Intent Range"
+  },
+  "empty": "No Data Available",
+  "syncStatus": {
+    "pending": {
+      "title": "Processing Contracts"
+    },
+    "completed": {
+      "title": "Processing Contracts Completed"
+    },
+    "failed": {
+      "title": "Processing Contracts Failed"
+    }
+  },
+  "status": {
+    "New": "New",
+    "NewMultiple": "New ({{count}})",
+    "Assigned": "Assigned",
+    "Contacted": "Contacted",
+    "TestDrive": "Test Drive",
+    "Converted": "Converted",
+    "NotInterested": "Not Interested",
+    "Reschedule": "Reschedule"
+  },
+  "actions": {
+      "uploadContracts": "Upload Contracts",
+      "newLeads": "New Leads ({{count}})",
+      "download": "Download"
+  },
+  "uploadContractsModal": {
+    "title": "Upload Contracts",
+    "uploadFile": "Upload File",
+    "uploading": "Uploading...",
+    "text": "Please upload contracts in .xlsx or .csv formats only.",
+    "uploadFailed": "Upload failed",
+    "uploadSuccessful": "Contracts have been uploaded successfully and will be displayed once processed."
+  },
+  "newLeads": {
+    "title": "New Leads",
+    "update": "Update",
+    "createSuccessful": "Lead updated",
+    "empty": "No New Eligible Leads",
+    "removeSuccessful": "{{customerName}} has been removed and marked as ineligible."
+  },
+  "download": {
+    "succeed": "Download Complete.",
+    "failed": "Download Failed. Please try again.",
+    "filename": "Leads_eligible_{{date}}.csv"
+  }
+}

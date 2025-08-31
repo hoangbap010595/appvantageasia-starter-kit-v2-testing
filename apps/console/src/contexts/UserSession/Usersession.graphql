@@ -1,0 +1,21 @@
+query FetchCurrentUser {
+    currentUser {
+        id
+        ...CurrentUser
+    }
+}
+
+fragment CurrentUser on User {
+    id
+    email
+    name
+    isSuperAdmin
+    memberships {
+        role
+        tenant {
+            id
+            slug
+            name
+        }
+    }
+}

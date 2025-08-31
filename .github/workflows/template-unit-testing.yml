@@ -1,0 +1,127 @@
+name: Template - Run unit testing
+
+on:
+  workflow_call:
+    inputs:
+      minio-image:
+        required: true
+        type: string
+
+jobs:
+  unit-testing:
+    runs-on: ${{ matrix.setup.runner }}
+    container: node:21.7.3-bookworm
+    env:
+      DOTENV_DISABLE: "true"
+      TURBO_API: ${{ secrets.TURBO_API }}
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+      APP_REDIS_URI: "redis://redis:6379/0"
+      APP_DB_URI: "mongodb://root:password@mongo:27017"
+      APP_STORAGE_AWS_IDENTITY: "false"
+      APP_STORAGE_ACCESS_KEY: "AKIAIOSFODNN7EXAMPLE"
+      APP_STORAGE_SECRET_KEY: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+      APP_STORAGE_ENDPOINT: "http://minio:9000"
+      APP_STORAGE_FORCE_PATH_STYLE: "true"
+      APP_BROKER_LOG_LEVEL: "error"
+      APP_EMAIL_SMTP_HOST: "mailpit"
+      APP_EMAIL_SMTP_PORT: "1025"
+      MAILPIT_HOSTNAME: "mailpit"
+    strategy:
+      matrix:
+        setup:
+          - package: "@appvantageasia/core-database"
+            services: [ "mongo" ]
+            runner: ubuntu-latest
+          - package: "@appvantageasia/core-utils"
+            services: []
+            runner: ubuntu-latest
+          - package: "@appvantageasia/core-node-utils"
+            services: []
+            runner: ubuntu-latest
+          - package: "@appvantageasia/core-bull"
+            services: [ "redis" ]
+            runner: ubuntu-latest
+          - package: "@appvantageasia/service-vendor-dummy"
+            services: [ "redis", "mongo" ]
+            runner: ubuntu-latest
+          - package: "@appvantageasia/backend"
+            services: [ "redis", "mongo" ]
+            runner: ubuntu-latest
+    services:
+      mailpit:
+        image: ${{ contains(matrix.setup.services, 'mailpit') && 'axllent/mailpit:v1.24.1' || null }}
+        ports:
+          - 1025:1025
+          - 8025:8025
+      minio:
+        image: ${{ contains(matrix.setup.services, 'minio') && inputs.minio-image || null }}
+        ports:
+          - 9000:9000
+        env:
+          MINIO_ROOT_USER: 'AKIAIOSFODNN7EXAMPLE'
+          MINIO_ROOT_PASSWORD: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
+        volumes:
+          - minio:/data
+      redis:
+        image: ${{ contains(matrix.setup.services, 'redis') && 'redis:7.4.2' || null }}
+        ports:
+          - 6379:6379
+        volumes:
+          - redis:/data
+      mongo:
+        image: ${{ contains(matrix.setup.services, 'mongo') && 'mongo:8.0.8' || null }}
+        ports:
+          - 27017:27017
+        env:
+          MONGO_INITDB_ROOT_USERNAME: root
+          MONGO_INITDB_ROOT_PASSWORD: password
+        volumes:
+          - mongo:/data/db
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.14.0
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn --immutable
+
+      - name: Prepare packages
+        run: yarn prepare
+
+      - name: Wait for mailpit
+        if: contains(matrix.setup.services, 'mailpit')
+        run: |
+          yarn wait-on -t 60s tcp:mailpit:1025
+          yarn wait-on -t 60s tcp:mailpit:8025
+
+      - name: Wait for redis
+        if: contains(matrix.setup.services, 'redis')
+        run: yarn wait-on -t 60s tcp:redis:6379
+
+      - name: Wait for minio
+        if: contains(matrix.setup.services, 'minio')
+        run: yarn wait-on -t 60s tcp:minio:9000
+
+      - name: Wait for mongo
+        if: contains(matrix.setup.services, 'mongo')
+        run: yarn wait-on -t 60s tcp:mongo:27017
+
+      - name: Test
+        run: yarn test --filter=${{ matrix.setup.package }} -- --coverage
+        id: runner
+        timeout-minutes: 30
+
+      - name: Upload coverage report to Codecov
+        uses: codecov/codecov-action@v5
+        if: always() && steps.runner.outcome != 'skipped'
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: vitest
+          name: ${{ matrix.setup.package }}
+          verbose: true

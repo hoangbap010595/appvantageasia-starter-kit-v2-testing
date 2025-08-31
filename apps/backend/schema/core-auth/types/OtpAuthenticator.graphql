@@ -1,0 +1,6 @@
+"""
+Otp Authenticator
+"""
+type OtpAuthenticator {
+    date: DateTime!
+}

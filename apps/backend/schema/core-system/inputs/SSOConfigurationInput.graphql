@@ -1,0 +1,7 @@
+"""
+SSO Configuration
+"""
+input SSOConfigurationInput {
+    msal: MSALConfigurationInput
+    oidc: OIDCConfigurationInput
+}

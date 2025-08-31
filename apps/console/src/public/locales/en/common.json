@@ -1,0 +1,87 @@
+{
+  "pages": {
+    "404": {
+      "title": "Sorry, the page can’t be found",
+      "description": "The page you were looking for appears to have been moved, deleted or does not exist.",
+      "buttonSpan": "Go to home page"
+    },
+    "500": {
+      "title": "Sorry, something went wrong",
+      "description": "There was a problem on our end. Please try again later."
+    }
+  },
+  "formats": {
+    "dateTime": "DD MMM YYYY hh:mm A",
+    "date": "DD MMM YYYY",
+    "dateRange": "DD/MM/YYYY",
+    "dateYear": "YYYY MMM"
+  },
+  "modal": {
+    "ok": "Ok",
+    "cancel": "Cancel"
+  },
+  "empty": {
+    "pickDate": "Pick a date"
+  },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "table": {
+    "filters": "{{count}} Filters",
+    "filter": "{{count}} Filter",
+    "clearAll": "Clear all",
+    "displayResults": "Displaying {{count}} results",
+    "displayResultsOne": "Displaying 1 result",
+    "range": {
+      "from": "From",
+      "to": "To"
+    }
+  },
+  "select": {
+    "placeholderSingle": "Select",
+    "placeholderMultiple": "Multi-Select",
+    "valueLabel": "{{value}}  & +{{count}}"
+  },
+  "confirmModal": {
+    "actions": {
+       "confirm": "Confirm",
+        "cancel": "Cancel"
+    }
+  },
+  "none": "None",
+  "search": "Search",
+  "uploadFile": "Upload a file",
+  "acceptImage": "PNG, JPG, SVG, GIF",
+  "uploading": "Uploading",
+  "uploadFailed": "Upload failed",
+  "selectError":"Please select file",
+  "copyright": "© {{year}} Appvantage. | Ver {{version}}",
+  "formErrors": {
+    "required": "This field is required",
+    "invalidEmail": "Invalid Email Address",
+    "invalidPassword": "Invalid password",
+    "passwordsDoNotMatch": "Passwords do not match",
+    "invalidName": "Invalid name",
+    "nameTooShort": "Name must be at least 2 characters long",
+    "nameTooLong": "Name cannot be more than 50 characters long",
+    "invalidSlug": "Slug must only contain lowercase letters, numbers, hyphens (-) and underscores (_)",
+    "slugTooShort": "Slug must be at least 3 characters long",
+    "slugTooLong": "Slug cannot be more than 15 characters long",
+    "invalidUrl": "Invalid URL"
+  },
+  "navigation": {
+    "home": "Home",
+    "404": "Not Found",
+    "profile": "Your Profile",
+    "system": "System Management",
+    "signOut": "Sign out",
+    "newTenant": "Create new tenant"
+  },
+  "copiedToClipboard": "Copied to clipboard!",
+  "theme": {
+    "dark": "Dark",
+    "light": "Light",
+    "system": "System"
+  }
+}

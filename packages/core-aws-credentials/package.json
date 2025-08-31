@@ -1,0 +1,25 @@
+{
+  "name": "@appvantageasia/core-aws-credentials",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./src/index.ts",
+  "types": "./src/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "clean": "yarn rimraf -g \"src/**/*.d.ts\" ./eslint-report.json ./typescript-report.json -g \"*.tsbuildinfo\"",
+    "lint": "eslint",
+    "lint:types": "yarn node $PROJECT_CWD/packages/devtools/build/github-actions/typescript-checker.js"
+  },
+  "devDependencies": {
+    "@appvantageasia/eslint-config": "*",
+    "@appvantageasia/tsconfig": "*",
+    "eslint": "^9.31.0",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@appvantageasia/core-node-utils": "*",
+    "@aws-sdk/credential-providers": "^3.848.0",
+    "@smithy/types": "^4.3.1"
+  }
+}

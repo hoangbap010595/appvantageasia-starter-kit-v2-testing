@@ -1,0 +1,4 @@
+"""
+Broadcast type
+"""
+union Broadcast = UserSessionBroadcast

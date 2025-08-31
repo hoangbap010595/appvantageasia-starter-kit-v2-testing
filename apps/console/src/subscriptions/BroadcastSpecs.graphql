@@ -1,0 +1,9 @@
+fragment BroadcastSpecs on Broadcast {
+    ... on UserSessionBroadcast {
+        ...UserSessionBroadcastSpecs
+    }
+}
+
+fragment UserSessionBroadcastSpecs on UserSessionBroadcast {
+    revokeSession
+}

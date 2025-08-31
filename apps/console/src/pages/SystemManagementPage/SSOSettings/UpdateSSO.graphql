@@ -1,0 +1,38 @@
+mutation updateSSO($settings: SSOConfigurationInput!) {
+    updateSSOConfiguration(sso: $settings) {
+        ... on UpdateSSOSuccessfulResponse {
+            result {
+                ...SSOConfigurationData
+            }
+        }
+
+        ... on ErrorResponse {
+            fields {
+                field
+                message
+            }
+        }
+    }
+}
+
+query getSSO {
+    ssoConfiguration {
+        ...SSOConfigurationData
+    }
+}
+
+fragment SSOConfigurationData on SSOConfiguration {
+    __typename
+
+    ... on MSALConfiguration {
+        authority
+        clientId
+        enforced
+    }
+
+    ... on OIDCConfiguration {
+        clientId
+        enforced
+        endpoint
+    }
+}

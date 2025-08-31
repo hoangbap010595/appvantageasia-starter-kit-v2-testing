@@ -1,0 +1,33 @@
+"""
+Queries
+"""
+type Query {
+    """
+    No-Operation Query
+    """
+    noop: Boolean
+}
+
+"""
+Mutations
+"""
+type Mutation {
+    """
+    No-Operation Mutation
+    """
+    noop: Boolean
+}
+
+"""
+Subscriptions
+"""
+type Subscription {
+    eventFromConsoleSession(token: String!): Broadcast!
+    eventFromUserSession(token: String!): Broadcast!
+}
+
+schema {
+    query: Query
+    mutation: Mutation
+    subscription: Subscription
+}

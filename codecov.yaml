@@ -1,0 +1,65 @@
+codecov:
+  max_report_age: off
+
+parsers:
+  javascript:
+    enable_partials: false
+
+component_management:
+  individual_components:
+    - component_id: backend
+      name: Backend
+      paths:
+        - apps/backend/**
+    - component_id: console
+      name: Console
+      paths:
+        - apps/console/**
+    - component_id: core-auth
+      name: Core Auth
+      paths:
+        - packages/core-auth/**
+    - component_id: core-aws-credentials
+      name: Core AWS Credentials
+      paths:
+        - packages/core-aws-credentials/**
+    - component_id: core-broker
+      name: Core Broker
+      paths:
+        - packages/core-broker/**
+    - component_id: core-bull
+      name: Core Bull
+      paths:
+        - packages/core-bull/**
+    - component_id: core-database
+      name: Core Database
+      paths:
+        - packages/core-database/**
+    - component_id: core-dataloaders
+      name: Core DataLoaders
+      paths:
+        - packages/core-dataloaders/**
+    - component_id: core-node-utils
+      name: Core Node Utils
+      paths:
+        - packages/core-node-utils/**
+    - component_id: core-trail
+      name: Core Trail
+      paths:
+        - packages/core-trail/**
+    - component_id: core-tenants
+      name: Core Tenants
+      paths:
+        - packages/core-tenants/**
+    - component_id: core-users
+      name: Core Users
+      paths:
+        - packages/core-users/**
+    - component_id: core-utils
+      name: Core Utils
+      paths:
+        - packages/core-utils/**
+    - component_id: service-vendor-dummy
+      name: Service Vendor Dummy
+      paths:
+        - services/vendor-dummy/**

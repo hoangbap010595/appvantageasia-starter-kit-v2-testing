@@ -1,0 +1,8 @@
+"""
+Basic Authentication Require Otp Response
+
+This is the response returned from require otp of basic authentication request.
+"""
+type BasicAuthenticationRequireOtpResponse {
+    token: String!
+}

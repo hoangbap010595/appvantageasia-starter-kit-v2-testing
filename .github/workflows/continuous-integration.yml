@@ -1,0 +1,38 @@
+name: Continuous Integration runs
+
+on:
+  push:
+    branches: [ "master", "latest" ]
+
+jobs:
+  main:
+    name: Main
+    uses: ./.github/workflows/template-main.yml
+    secrets: inherit
+    with:
+      skip-tests: true
+
+  publish-development:
+    name: Publish Development
+    uses: ./.github/workflows/template-publish.yml
+    needs: [ main ]
+    secrets: inherit
+    if: github.ref == 'refs/heads/master'
+    concurrency:
+      group: "publish-development"
+      cancel-in-progress: false
+    with:
+      aws-region: "ap-southeast-1"
+      aws-role-arn: "arn:aws:iam::985587343714:role/starter-kit-v2-1c40d9f7-development-release-role"
+
+  publish-storybook:
+    name: Publish Storybook
+    uses: ./.github/workflows/template-publish-storybook.yml
+    needs: [ publish-development ]
+    secrets: inherit
+    if: ${{ needs.publish-development.outputs.nextRelease != '' }}
+    with:
+      version: ${{ needs.publish-development.outputs.nextRelease }}
+      aws-region: "ap-southeast-1"
+      aws-role-arn: "arn:aws:iam::985587343714:role/starter-kit-v2-1c40d9f7-development-release-role"
+      aws-bucket: "starter-kit-v2-1c40d9f7-storybook"
