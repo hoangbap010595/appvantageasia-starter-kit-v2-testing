@@ -22,7 +22,7 @@
     "prepare": "turbo run prepare",
     "build": "turbo run build",
     "build:image": "node ./packages/devtools/build/commands/build-image.js",
-    "dev": "turbo run dev",
+    "dev": "turbo run dev --filter=@appvantageasia/backend --filter=@appvantageasia/console",
     "lint": "turbo run lint",
     "lint:types": "turbo run lint:types",
     "test": "turbo run test",
